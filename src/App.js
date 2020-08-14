@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Input from './Components/Input';
 import Counter from './Components/Counter';
 import AnswerList from './Components/AnswerList';
@@ -7,6 +7,8 @@ import Start from './Components/Start';
 import './App.css';
 
 function App() {
+    const ref = useRef(null);
+
     const [teamsList, setTeamsList] = useState([
         'liverpool',
         'west ham',
@@ -40,6 +42,8 @@ function App() {
 
     const [start, setStart] = useState(false);
 
+    const [timerState, setTimerState] = useState();
+
     useEffect(() => {
         let tempAnswer = teamsList.filter((item) => item === change);
 
@@ -53,10 +57,13 @@ function App() {
             setChange('');
         }
         if (start) {
-            timer > 0 &&
+            const timerVariable =
+                timer > 0 &&
                 setTimeout(() => {
                     setTimer(timer - 1);
                 }, 1000);
+            setTimerState(timerVariable);
+            return () => clearTimeout(timer);
         }
         if (timer === 0) {
             setStart(false);
@@ -77,17 +84,20 @@ function App() {
     };
 
     const newGame = () => {
+        clearTimeout(timerState);
         setCount(0);
         setAnswerList([]);
         setTimer(45);
-        clearTimeout(timer);
     };
 
     return (
         <>
             <div className='jumbotron'>
                 <div className='column'>
-                    <Input change={change} handleChange={handleChange}></Input>
+                    <Input
+                        change={change}
+                        ref={ref}
+                        handleChange={handleChange}></Input>
                     <Start
                         timer={timer}
                         startGame={startGame}
