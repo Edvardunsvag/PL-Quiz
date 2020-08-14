@@ -6,7 +6,12 @@ export default function Input({ handleChange, change }) {
             <h1 className='head'>List All The Premier League Teams</h1>
             <form>
                 <div className='form-group'>
-                    <input onChange={handleChange} value={change} type='text' />
+                    <input
+                        placeholder='Ex. Arsenal'
+                        onChange={handleChange}
+                        value={change}
+                        type='text'
+                    />
                 </div>
             </form>
         </>

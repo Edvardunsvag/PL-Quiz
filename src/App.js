@@ -7,8 +7,6 @@ import Start from './Components/Start';
 import './App.css';
 
 function App() {
-    const levenshtein = require('js-levenshtein');
-
     const [teamsList, setTeamsList] = useState([
         'Liverpool',
         'West Ham',
@@ -43,10 +41,19 @@ function App() {
     const [start, setStart] = useState(false);
 
     useEffect(() => {
-        checkAnswer();
+        let tempAnswer = teamsList.filter((item) => item === change);
+
+        if (tempAnswer.length !== 0 && tempAnswer[0] === change) {
+            setCount((prevstate) => {
+                return prevstate + 1;
+            });
+            let newTeams = teamsList.filter((item) => item !== change);
+            setTeamsList(newTeams);
+            setAnswerList([...answerList, change]);
+            setChange('');
+        }
         if (start) {
-            let counter =
-                timer > 0 &&
+            timer > 0 &&
                 setTimeout(() => {
                     setTimer(timer - 1);
                 }, 1000);
@@ -54,7 +61,7 @@ function App() {
         if (timer === 0) {
             setStart(false);
         }
-    }, [timer, start]);
+    }, [timer, start, answerList, change, teamsList]);
 
     const handleChange = (e) => {
         if (start === true) {
@@ -73,20 +80,6 @@ function App() {
         setAnswerList([]);
         setTimer(45);
         clearTimeout(timer);
-    };
-
-    const checkAnswer = () => {
-        let tempAnswer = teamsList.filter((item) => item === change);
-
-        if (tempAnswer.length !== 0 && tempAnswer[0] === change) {
-            setCount((prevstate) => {
-                return prevstate + 1;
-            });
-            let newTeams = teamsList.filter((item) => item !== change);
-            setTeamsList(newTeams);
-            setAnswerList([...answerList, change]);
-            setChange('');
-        }
     };
 
     return (
