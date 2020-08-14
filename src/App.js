@@ -8,26 +8,26 @@ import './App.css';
 
 function App() {
     const [teamsList, setTeamsList] = useState([
-        'Liverpool',
-        'West Ham',
-        'Leeds',
-        'Manchester City',
-        'Manchester United',
-        'Chelsea',
-        'Leicester',
-        'Tottenham',
-        'Wolverhampton',
-        'Arsenal',
-        'Sheffield United',
-        'Burnley',
-        'Southhampton',
-        'Everton',
-        'Newcastle',
-        'Crystal Palace',
-        'Brighton',
-        'Aston Villa',
-        'West Bromwich',
-        'Brentford',
+        'liverpool',
+        'west ham',
+        'leeds',
+        'manchester city',
+        'manchester united',
+        'chelsea',
+        'leicester',
+        'tottenham',
+        'wolverhampton',
+        'arsenal',
+        'sheffield united',
+        'burnley',
+        'southhampton',
+        'everton',
+        'newcastle',
+        'crystal palace',
+        'brighton',
+        'aston villa',
+        'west bromwich',
+        'brentford',
     ]);
 
     const [change, setChange] = useState('');
@@ -66,8 +66,9 @@ function App() {
     const handleChange = (e) => {
         if (start === true) {
             let value = e.target.value;
+            let res = value.toLowerCase();
 
-            setChange(value);
+            setChange(res);
         }
     };
 
@@ -93,8 +94,10 @@ function App() {
                         newGame={newGame}></Start>
                 </div>
                 <div className='column'>
-                    <AnswerList answerList={answerList}></AnswerList>
                     <Counter count={count}></Counter>
+                </div>
+                <div className='column'>
+                    <AnswerList answerList={answerList}></AnswerList>
                 </div>
             </div>
         </>
