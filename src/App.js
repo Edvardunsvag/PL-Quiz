@@ -7,8 +7,6 @@ import Start from './Components/Start';
 import './App.css';
 
 function App() {
-    const ref = useRef(null);
-
     const [teamsList, setTeamsList] = useState([
         'liverpool',
         'west ham',
@@ -31,6 +29,7 @@ function App() {
         'west bromwich',
         'brentford',
     ]);
+    const refContainer = useRef(null);
 
     const [change, setChange] = useState('');
 
@@ -80,6 +79,7 @@ function App() {
     };
 
     const startGame = () => {
+        refContainer.current.focus();
         setStart(true);
     };
 
@@ -95,8 +95,8 @@ function App() {
             <div className='jumbotron'>
                 <div className='column'>
                     <Input
+                        focusing={refContainer}
                         change={change}
-                        ref={ref}
                         handleChange={handleChange}></Input>
                     <Start
                         timer={timer}
