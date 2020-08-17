@@ -18,8 +18,13 @@ body {
     height: 100vh;
 }
 
-.teamHeader {
-    text-align: center;
+.navbar {
+    position: fixed;
+    width: 100vw;
+}
+
+.nav-item {
+    margin-left: 2rem;
 }
 
 .Start {
@@ -49,6 +54,8 @@ body {
 
 .head {
     text-align: center;
+    text-align: center;
+    margin-top: 2rem;
 }
 
 h6 {

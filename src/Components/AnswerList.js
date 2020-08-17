@@ -3,7 +3,7 @@ import React from 'react';
 export default function AnswerList({ answerList }) {
     return (
         <>
-            <h1 className='teamHeader'>Teams</h1>
+            <h1 className='head'>Teams</h1>
             <div className='list-group'>
                 {answerList.map((item, index) => {
                     return (
