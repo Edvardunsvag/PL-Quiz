@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 const DataContext = React.createContext();
 export default function RoomProvider(props) {
+    const levenshtein = require('js-levenshtein');
     const [teamsList, setTeamsList] = useState([
         'liverpool',
         'west ham',
@@ -41,22 +42,37 @@ export default function RoomProvider(props) {
 
     const [redirect, setRedirect] = useState(false);
 
+    const [levenshteinScore, setLevenshteinScore] = useState(false);
+
+    const handleLevenshtein = () => {
+        for (let i = 0; i < teamsList.length; i++) {
+            let result = levenshtein(change, teamsList[i]);
+            if (result < 3) {
+                setLevenshteinScore(true);
+                return teamsList[i];
+            }
+        }
+    };
+
     useEffect(() => {
-        let tempAnswer = teamsList.filter((item) => item === change);
+        let answer = handleLevenshtein();
+
+        // let tempAnswer = teamsList.filter((item) => item === change);
 
         if (timer === 0) {
             setRedirect(true);
             setStart(false);
         }
 
-        if (tempAnswer.length !== 0 && tempAnswer[0] === change) {
+        if (levenshteinScore) {
             setCount((prevstate) => {
                 return prevstate + 1;
             });
-            let newTeams = teamsList.filter((item) => item !== change);
+            let newTeams = teamsList.filter((item) => item !== answer);
             setTeamsList(newTeams);
-            setAnswerList([...answerList, change]);
+            setAnswerList([...answerList, answer]);
             setChange('');
+            setLevenshteinScore(false);
         }
         if (start) {
             const timerVariable =
