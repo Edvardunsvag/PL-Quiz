@@ -29,7 +29,7 @@ export default function Registration({
                 <div className='column'>
                     <div className='list-group'>
                         <div className='head'>
-                            <h3>leaderboard</h3>
+                            <h3>Leaderboard</h3>
                             {leaderboard.map((item, index) => {
                                 return (
                                     <ScoreItem
