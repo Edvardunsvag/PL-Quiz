@@ -49,7 +49,7 @@ export default function RoomProvider(props) {
     useEffect(() => {
         for (let i = 0; i < teamsList.length; i++) {
             let result = levenshtein(change, teamsList[i]);
-            if (result < 2.5) {
+            if (result < 2.5 && teamsList[i].length === change.length) {
                 setLevenshteinScore(true);
                 setAnswer(teamsList[i]);
             }
