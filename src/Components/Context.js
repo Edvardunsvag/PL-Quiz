@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+
 const DataContext = React.createContext();
 export default function RoomProvider(props) {
     const [teamsList, setTeamsList] = useState([
@@ -38,10 +39,13 @@ export default function RoomProvider(props) {
 
     const [timerState, setTimerState] = useState();
 
+    const [redirect, setRedirect] = useState(false);
+
     useEffect(() => {
         let tempAnswer = teamsList.filter((item) => item === change);
 
         if (timer === 0) {
+            setRedirect(true);
             setStart(false);
         }
 
@@ -74,12 +78,12 @@ export default function RoomProvider(props) {
         }
     };
 
-    const startGame = () => {
+    const startGame = (event) => {
         refContainer.current.focus();
         setStart(true);
     };
 
-    const newGame = () => {
+    const newGame = (event) => {
         clearTimeout(timerState);
         setCount(0);
         setAnswerList([]);
@@ -96,6 +100,8 @@ export default function RoomProvider(props) {
                 startGame: startGame,
                 newGame: newGame,
                 timer,
+                redirect,
+                setRedirect,
                 answerList,
                 timerState,
             }}>

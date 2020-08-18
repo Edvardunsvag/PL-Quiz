@@ -4,6 +4,7 @@ import Counter from '../Components/Counter';
 import AnswerList from '../Components/AnswerList';
 import { DataContext } from '../Components/Context';
 import Start from '../Components/Start';
+import { Redirect } from 'react-router';
 
 import '../App.css';
 
@@ -19,10 +20,12 @@ function App() {
         newGame,
         count,
         answerList,
+        redirect,
     } = context;
 
     return (
         <>
+            {redirect === true && <Redirect push to='/RegPage' />}
             <div className='jumbotron'>
                 <div className='column'>
                     <Input

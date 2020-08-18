@@ -9,7 +9,7 @@ export default function AnswerList({ answerList }) {
                     return (
                         <li
                             key={index}
-                            className='list-group-item bg-success py-1'>
+                            className='list-group-item bg-success py-0'>
                             <h6>{item}</h6>
                         </li>
                     );

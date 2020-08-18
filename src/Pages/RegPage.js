@@ -30,7 +30,7 @@ export default function RegPage() {
 
     const context = useContext(DataContext);
 
-    const { count } = context;
+    const { count, setRedirect } = context;
 
     useEffect(() => {
         const gotData = (data) => {
@@ -74,6 +74,7 @@ export default function RegPage() {
         };
         ref.push(data);
         setLeaderboard([]);
+        setRedirect(false);
     };
 
     return (

@@ -14,6 +14,7 @@ export default function Registration({
                     <div className='head'>
                         <input
                             type='text'
+                            placeholder='E.g Lars'
                             value={change}
                             onChange={regHandleChange}
                         />
