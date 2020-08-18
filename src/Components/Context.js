@@ -44,19 +44,16 @@ export default function RoomProvider(props) {
 
     const [levenshteinScore, setLevenshteinScore] = useState(false);
 
-    const handleLevenshtein = () => {
-        for (let i = 0; i < teamsList.length; i++) {
-            let result = levenshtein(change, teamsList[i]);
-            if (result < 3) {
-                setLevenshteinScore(true);
-                return teamsList[i];
-            }
-        }
-    };
+    const [answer, setAnswer] = useState('');
 
     useEffect(() => {
-        let answer = handleLevenshtein();
-
+        for (let i = 0; i < teamsList.length; i++) {
+            let result = levenshtein(change, teamsList[i]);
+            if (result < 2.5) {
+                setLevenshteinScore(true);
+                setAnswer(teamsList[i]);
+            }
+        }
         // let tempAnswer = teamsList.filter((item) => item === change);
 
         if (timer === 0) {
@@ -83,7 +80,17 @@ export default function RoomProvider(props) {
             setTimerState(timerVariable);
             return () => clearTimeout(timer);
         }
-    }, [timer, start, answerList, change, teamsList, count]);
+    }, [
+        timer,
+        start,
+        answerList,
+        change,
+        teamsList,
+        count,
+        levenshteinScore,
+        levenshtein,
+        answer,
+    ]);
 
     const handleChange = (e) => {
         if (start === true) {
