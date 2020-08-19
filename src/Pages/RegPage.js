@@ -30,9 +30,7 @@ export default function RegPage() {
 
     const context = useContext(DataContext);
 
-    const { count, setRedirect } = context;
-
-    const [submitName, setSubmitName] = useState(true);
+    const { count, setRedirect, setSubmitName, submitName } = context;
 
     useEffect(() => {
         const gotData = (data) => {

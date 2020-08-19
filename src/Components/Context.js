@@ -46,6 +46,9 @@ export default function RoomProvider(props) {
 
     const [answer, setAnswer] = useState('');
 
+    //Reg Page
+    const [submitName, setSubmitName] = useState(true);
+
     useEffect(() => {
         for (let i = 0; i < teamsList.length; i++) {
             let result = levenshtein(change, teamsList[i]);
@@ -109,6 +112,7 @@ export default function RoomProvider(props) {
     const newGame = (event) => {
         clearTimeout(timerState);
         setCount(0);
+        setSubmitName(true);
         setAnswerList([]);
         setTimer(90);
     };
@@ -127,6 +131,8 @@ export default function RoomProvider(props) {
                 setRedirect,
                 answerList,
                 timerState,
+                submitName,
+                setSubmitName,
             }}>
             {props.children}
         </DataContext.Provider>
