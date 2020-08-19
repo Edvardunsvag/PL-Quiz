@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .form-group {
@@ -14,13 +14,15 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
-
+    margin-bottom: 0;
     height: 100vh;
+    overflow: auto;
 }
 
 .navbar {
     position: fixed;
     width: 100vw;
+    z-index: 1;
 }
 
 .nav-item {
@@ -50,6 +52,7 @@ body {
 
 .column {
     border-right: 1px solid;
+    margin-bottom: 1rem;
 }
 
 .head {
