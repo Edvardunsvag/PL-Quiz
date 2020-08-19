@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ScoreItem from './ScoreItem';
 export default function Registration({
@@ -7,6 +7,15 @@ export default function Registration({
     change,
     leaderboard,
 }) {
+    const [sorted, setSorted] = useState([]);
+
+    useEffect(() => {
+        let sorted = leaderboard.sort((a, b) => (a.count > b.count ? 1 : -1));
+
+        setSorted(sorted.reverse());
+        return () => {};
+    }, [leaderboard]);
+
     return (
         <>
             <div className='jumbotron'>
@@ -30,7 +39,7 @@ export default function Registration({
                     <div className='list-group'>
                         <div className='head'>
                             <h3>Leaderboard</h3>
-                            {leaderboard.map((item, index) => {
+                            {sorted.map((item, index) => {
                                 return (
                                     <ScoreItem
                                         key={index}

@@ -32,6 +32,8 @@ export default function RegPage() {
 
     const { count, setRedirect } = context;
 
+    const [submitName, setSubmitName] = useState(true);
+
     useEffect(() => {
         const gotData = (data) => {
             let scores = data.val();
@@ -67,14 +69,18 @@ export default function RegPage() {
     };
 
     const regHandleClick = () => {
-        setFireBaseCall(false);
-        const data = {
-            count: count,
-            name: change,
-        };
-        ref.push(data);
-        setLeaderboard([]);
-        setRedirect(false);
+        if (submitName) {
+            setFireBaseCall(false);
+            const data = {
+                count: count,
+                name: change,
+            };
+            ref.push(data);
+            setLeaderboard([]);
+            setRedirect(false);
+        }
+
+        setSubmitName(false);
     };
 
     return (
