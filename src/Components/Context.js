@@ -34,7 +34,7 @@ export default function RoomProvider(props) {
 
     const [answerList, setAnswerList] = useState([]);
 
-    const [timer, setTimer] = useState(5);
+    const [timer, setTimer] = useState(120);
 
     const [start, setStart] = useState(false);
 
