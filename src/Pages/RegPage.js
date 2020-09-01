@@ -67,7 +67,10 @@ export default function RegPage() {
     };
 
     const regHandleClick = () => {
+        console.log('Handle Click ute');
         if (submitName) {
+            console.log('Handle Click Inne');
+
             setFireBaseCall(false);
             const data = {
                 count: count,

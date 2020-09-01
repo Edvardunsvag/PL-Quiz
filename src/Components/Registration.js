@@ -20,17 +20,17 @@ export default function Registration({
         <>
             <div className='jumbotron'>
                 <div className='column'>
-                    <div className='head'>
+                    <div className='head name-reg'>
                         <input
                             type='text'
-                            placeholder='E.g Lars'
+                            placeholder='Write your name, E.g Lars'
                             value={change}
                             onChange={regHandleChange}
                         />
                         <button
                             type='button'
                             onClick={regHandleClick}
-                            className='btn btn-primary Start'>
+                            className='btn btn-primary Start submit-btn'>
                             Submit Name
                         </button>
                     </div>

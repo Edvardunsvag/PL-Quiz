@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ScoreItem({ count, name }) {
     return (
-        <li className='list-group-item bg-success py-1'>
+        <li className='list-group-item bg-warning py-1'>
             <h6>
                 {name} : {count}
             </h6>

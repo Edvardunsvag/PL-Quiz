@@ -34,7 +34,7 @@ export default function RoomProvider(props) {
 
     const [answerList, setAnswerList] = useState([]);
 
-    const [timer, setTimer] = useState(90);
+    const [timer, setTimer] = useState(5);
 
     const [start, setStart] = useState(false);
 
@@ -47,7 +47,7 @@ export default function RoomProvider(props) {
     const [answer, setAnswer] = useState('');
 
     //Reg Page
-    const [submitName, setSubmitName] = useState(true);
+    const [submitName, setSubmitName] = useState(false);
 
     useEffect(() => {
         for (let i = 0; i < teamsList.length; i++) {
@@ -57,9 +57,9 @@ export default function RoomProvider(props) {
                 setAnswer(teamsList[i]);
             }
         }
-        // let tempAnswer = teamsList.filter((item) => item === change);
 
         if (timer === 0) {
+            setSubmitName(true);
             setRedirect(true);
             setStart(false);
         }
