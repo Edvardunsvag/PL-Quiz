@@ -40,7 +40,7 @@ function App() {
                 <div className='column'>
                     <Counter count={count}></Counter>
                 </div>
-                <div className='column'>
+                <div className='column' style={{ borderRight: 'none' }}>
                     <AnswerList answerList={answerList}></AnswerList>
                 </div>
             </div>

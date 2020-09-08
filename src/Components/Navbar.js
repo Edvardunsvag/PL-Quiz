@@ -7,7 +7,7 @@ export default function Navbar() {
                 <ul className='navbar-nav'>
                     <li className='nav-item active'>
                         <Link to='/'>
-                            <h4 className='navbar-brand'>Hjem</h4>
+                            <h4 className='navbar-brand'>Home</h4>
                         </Link>
                     </li>
                     <li className='nav-item'>

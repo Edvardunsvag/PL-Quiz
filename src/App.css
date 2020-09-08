@@ -3,6 +3,8 @@ body {
     padding: 0;
     box-sizing: border-box;
     overflow: auto;
+    font-family: 'Dosis', sans-serif;
+    font-weight: 200;
 }
 
 ::placeholder {
@@ -39,10 +41,10 @@ body {
 }
 
 .counter h1 {
-    text-align: center;
-    font-size: 5rem;
-    margin-top: 5rem;
     font-weight: 200;
+    text-align: center;
+    font-size: 4rem;
+    margin-top: 5rem;
 }
 
 .list-group {
@@ -56,11 +58,11 @@ body {
 
 .column {
     border-right: 1px solid;
-    margin-bottom: 1rem;
+    height: calc(100vh - 63.96px);
 }
 
 .head {
-    font-size: 2rem;
+    font-size: 2.5rem;
     text-align: center;
     text-align: center;
     margin-top: 2rem;
@@ -86,11 +88,14 @@ h3 {
         width: 100%;
         overflow: auto;
     }
+    .column {
+        height: 30%;
+        border-right: none;
+    }
     .counter h1 {
         text-align: center;
         font-size: 3rem;
         margin-top: 0.5rem;
-        font-weight: 200;
     }
 
     .form-group {

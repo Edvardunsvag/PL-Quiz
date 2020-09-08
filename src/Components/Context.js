@@ -114,7 +114,7 @@ export default function RoomProvider(props) {
         setCount(0);
         setSubmitName(true);
         setAnswerList([]);
-        setTimer(90);
+        setTimer(120);
     };
 
     return (

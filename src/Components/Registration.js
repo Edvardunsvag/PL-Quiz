@@ -38,7 +38,7 @@ export default function Registration({
                 <div className='column'>
                     <div className='list-group'>
                         <div className='head'>
-                            <h3>Leaderboard</h3>
+                            <h1>Leaderboard</h1>
                             {sorted.map((item, index) => {
                                 return (
                                     <ScoreItem
