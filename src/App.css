@@ -81,6 +81,11 @@ h3 {
     margin-bottom: 1rem;
 }
 
+.playerInput {
+    margin-right: 2rem;
+    margin-left: 2rem;
+}
+
 @media only screen and (max-width: 600px) {
     .jumbotron {
         display: grid;

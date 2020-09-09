@@ -22,6 +22,7 @@ export default function Registration({
                 <div className='column'>
                     <div className='head name-reg'>
                         <input
+                            className='playerInput'
                             type='text'
                             placeholder='Write your name, E.g Lars'
                             value={change}
