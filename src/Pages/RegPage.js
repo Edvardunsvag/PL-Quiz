@@ -6,14 +6,14 @@ import firebase from 'firebase';
 // Set the configuration for your app
 // TODO: Replace with your project's config object
 var firebaseConfig = {
-    apiKey: 'AIzaSyBrNabd729PA99ZfiYQZrszwd-81CAKtQA',
-    authDomain: 'myawesomepremierleaguequiz.firebaseapp.com',
-    databaseURL: 'https://myawesomepremierleaguequiz.firebaseio.com',
-    projectId: 'myawesomepremierleaguequiz',
-    storageBucket: 'myawesomepremierleaguequiz.appspot.com',
-    messagingSenderId: '860445190494',
-    appId: '1:860445190494:web:c94b18cc0ad7f9d2b687cf',
-    measurementId: 'G-MQC5G5DSCL',
+    apiKey: 'AIzaSyD9k-ZrjokM2YwdpUH2Ng9Oj_pC0WwPg6E',
+    authDomain: 'myawesomepremierleaguequiz2.firebaseapp.com',
+    databaseURL: 'https://myawesomepremierleaguequiz2.firebaseio.com',
+    projectId: 'myawesomepremierleaguequiz2',
+    storageBucket: 'myawesomepremierleaguequiz2.appspot.com',
+    messagingSenderId: '978935975021',
+    appId: '1:978935975021:web:88ba28c845f57e4bf44364',
+    measurementId: 'G-CDZ7Z696D2',
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -35,21 +35,23 @@ export default function RegPage() {
     useEffect(() => {
         const gotData = (data) => {
             let scores = data.val();
-            let keys = Object.keys(scores);
-            for (let i = 0; i < keys.length; i++) {
-                let k = keys[i];
-                let initials = scores[k].name;
-                let score = scores[k].count;
+            if (scores != null) {
+                let keys = Object.keys(scores);
+                for (let i = 0; i < keys.length; i++) {
+                    let k = keys[i];
+                    let initials = scores[k].name;
+                    let score = scores[k].count;
 
-                const newScoreElement = {
-                    name: initials,
-                    count: score,
-                };
+                    const newScoreElement = {
+                        name: initials,
+                        count: score,
+                    };
 
-                setLeaderboard((leaderboard) => [
-                    ...leaderboard,
-                    newScoreElement,
-                ]);
+                    setLeaderboard((leaderboard) => [
+                        ...leaderboard,
+                        newScoreElement,
+                    ]);
+                }
             }
         };
 
