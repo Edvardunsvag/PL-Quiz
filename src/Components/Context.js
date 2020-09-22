@@ -23,7 +23,7 @@ export default function RoomProvider(props) {
         'brighton',
         'aston villa',
         'west bromwich',
-        'brentford',
+        'fulham',
     ]);
 
     const refContainer = useRef(null);
