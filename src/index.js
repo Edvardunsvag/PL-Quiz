@@ -2,17 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-import { RoomProvider } from './Components/Context';
+import { Context } from './Components/Context';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 
 ReactDOM.render(
     <React.StrictMode>
-        <RoomProvider>
+        <Context>
             <BrowserRouter>
                 <App />
             </BrowserRouter>
-        </RoomProvider>
+        </Context>
     </React.StrictMode>,
     document.getElementById('root')
 );

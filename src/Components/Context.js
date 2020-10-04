@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 const DataContext = React.createContext();
-export default function RoomProvider(props) {
+export default function Context(props) {
     const levenshtein = require('js-levenshtein');
     const [teamsList, setTeamsList] = useState([
         'liverpool',
@@ -110,9 +110,32 @@ export default function RoomProvider(props) {
     };
 
     const newGame = (event) => {
+        refContainer.current.focus();
         clearTimeout(timerState);
         setCount(0);
         setSubmitName(true);
+        setTeamsList([
+            'liverpool',
+            'west ham',
+            'leeds',
+            'manchester city',
+            'manchester united',
+            'chelsea',
+            'leicester',
+            'tottenham',
+            'wolverhampton',
+            'arsenal',
+            'sheffield united',
+            'burnley',
+            'southhampton',
+            'everton',
+            'newcastle',
+            'crystal palace',
+            'brighton',
+            'aston villa',
+            'west bromwich',
+            'fulham',
+        ]);
         setAnswerList([]);
         setTimer(120);
     };
@@ -139,6 +162,4 @@ export default function RoomProvider(props) {
     );
 }
 
-const RoomConsumer = DataContext.Consumer;
-
-export { RoomConsumer, RoomProvider, DataContext };
+export { Context, DataContext };
