@@ -1,102 +1,66 @@
-import React, { useState, useContext, useEffect } from 'react';
-import Registration from '../Components/Registration';
-import { DataContext } from '../Components/Context';
-import firebase from 'firebase';
-
-// Set the configuration for your app
-// TODO: Replace with your project's config object
-var firebaseConfig = {
-    apiKey: 'AIzaSyD9k-ZrjokM2YwdpUH2Ng9Oj_pC0WwPg6E',
-    authDomain: 'myawesomepremierleaguequiz2.firebaseapp.com',
-    databaseURL: 'https://myawesomepremierleaguequiz2.firebaseio.com',
-    projectId: 'myawesomepremierleaguequiz2',
-    storageBucket: 'myawesomepremierleaguequiz2.appspot.com',
-    messagingSenderId: '978935975021',
-    appId: '1:978935975021:web:88ba28c845f57e4bf44364',
-    measurementId: 'G-CDZ7Z696D2',
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-let database = firebase.database();
-let ref = database.ref('scores');
+import React, { useState, useContext, useEffect } from "react";
+import Registration from "../Components/Registration";
+import { DataContext } from "../Components/Context";
 
 export default function RegPage() {
-    const [change, setChange] = useState('');
+  const [change, setChange] = useState("");
 
-    const [leaderboard, setLeaderboard] = useState([]);
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [apiCall, setApiCall] = useState(false);
 
-    const [fireBaseCall, setFireBaseCall] = useState(false);
+  const context = useContext(DataContext);
 
-    const context = useContext(DataContext);
+  const { count, setRedirect, setSubmitName, submitName } = context;
 
-    const { count, setRedirect, setSubmitName, submitName } = context;
+  useEffect(() => {
+    fetch("https://premierleaguequiz.azurewebsites.net/api/PremierLeague")
+      .then((data) => data.json())
+      .then((data) => setLeaderboard(data));
 
-    useEffect(() => {
-        const gotData = (data) => {
-            let scores = data.val();
-            if (scores != null) {
-                let keys = Object.keys(scores);
-                for (let i = 0; i < keys.length; i++) {
-                    let k = keys[i];
-                    let initials = scores[k].name;
-                    let score = scores[k].count;
+    return () => {};
+  }, [apiCall, submitName]);
 
-                    const newScoreElement = {
-                        name: initials,
-                        count: score,
-                    };
+  const regHandleChange = (e) => {
+    let value = e.target.value;
+    setChange(value);
+  };
 
-                    setLeaderboard((leaderboard) => [
-                        ...leaderboard,
-                        newScoreElement,
-                    ]);
-                }
-            }
-        };
+  const regHandleClick = () => {
+    console.log("Handle Click ute");
+    if (submitName) {
+      console.log("Handle Click Inne");
 
-        if (fireBaseCall === false) {
-            ref.on('value', gotData);
-        }
-        setFireBaseCall(true);
+      fetch("https://premierleaguequiz.azurewebsites.net/api/PremierLeague", {
+        // Enter your IP address here
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify({ id: 0, name: change, score: count }),
+      });
 
-        return () => {};
-    }, [fireBaseCall, leaderboard]);
+      setApiCall(!apiCall);
 
-    const regHandleChange = (e) => {
-        let value = e.target.value;
-        setChange(value);
-    };
+      setRedirect(false);
+    }
+    fetch("https://premierleaguequiz.azurewebsites.net/api/PremierLeague")
+      .then((data) => data.json())
+      .then((data) => setLeaderboard(data));
 
-    const regHandleClick = () => {
-        console.log('Handle Click ute');
-        if (submitName) {
-            console.log('Handle Click Inne');
+    setSubmitName(false);
+  };
 
-            setFireBaseCall(false);
-            const data = {
-                count: count,
-                name: change,
-            };
-            ref.push(data);
-            setLeaderboard([]);
-            setRedirect(false);
-        }
-
-        setSubmitName(false);
-    };
-
-    return (
-        <>
-            <div>
-                {setFireBaseCall && (
-                    <Registration
-                        leaderboard={leaderboard}
-                        change={change}
-                        regHandleChange={regHandleChange}
-                        regHandleClick={regHandleClick}></Registration>
-                )}
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div>
+        {setApiCall && (
+          <Registration
+            leaderboard={leaderboard}
+            change={change}
+            regHandleChange={regHandleChange}
+            regHandleClick={regHandleClick}></Registration>
+        )}
+      </div>
+    </>
+  );
 }

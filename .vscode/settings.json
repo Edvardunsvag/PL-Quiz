@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/b00f1c6c-3fba-4660-9215-e01884556da3/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/PremierLeagueQuizApp",
+  "appService.deploySubpath": "."
+}
