@@ -26,7 +26,7 @@ export default function RegPage() {
   };
 
   const regHandleClick = () => {
-    console.log("Handle Click ute");
+    console.log("Handle Click utee");
     if (submitName) {
       console.log("Handle Click Inne");
 
