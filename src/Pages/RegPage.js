@@ -13,12 +13,21 @@ export default function RegPage() {
   const { count, setRedirect, setSubmitName, submitName } = context;
 
   useEffect(() => {
-    fetch("https://premierleaguequiz.azurewebsites.net/api/PremierLeague")
-      .then((data) => data.json())
-      .then((data) => setLeaderboard(data));
+    let isSubsribed = true; //due to cleanup
+    const response = async () => {
+      const response = await fetch(
+        "https://premierleaguequiz.azurewebsites.net/api/PremierLeague"
+      );
+      const data = await response.json();
+      return data;
+    };
 
-    return () => {};
-  }, [apiCall, submitName]);
+    response().then((data) => (isSubsribed ? setLeaderboard(data) : null));
+
+    return () => {
+      isSubsribed = false;
+    };
+  }, [apiCall, submitName, leaderboard]);
 
   const regHandleChange = (e) => {
     let value = e.target.value;
@@ -26,10 +35,7 @@ export default function RegPage() {
   };
 
   const regHandleClick = () => {
-    console.log("Handle Click utee");
     if (submitName) {
-      console.log("Handle Click Inne");
-
       fetch("https://premierleaguequiz.azurewebsites.net/api/PremierLeague", {
         // Enter your IP address here
         method: "POST",
@@ -37,17 +43,14 @@ export default function RegPage() {
           "Content-Type": "application/json; charset=utf-8",
         },
         body: JSON.stringify({ id: 0, name: change, score: count }),
-      });
+      })
+        .then((data) => data.json())
+        .then((data) => setLeaderboard(data));
 
       setApiCall(!apiCall);
-
+      setSubmitName(false);
       setRedirect(false);
     }
-    fetch("https://premierleaguequiz.azurewebsites.net/api/PremierLeague")
-      .then((data) => data.json())
-      .then((data) => setLeaderboard(data));
-
-    setSubmitName(false);
   };
 
   return (

@@ -16,7 +16,7 @@ export default function Context(props) {
     "arsenal",
     "sheffield united",
     "burnley",
-    "southhampton",
+    "southampton",
     "everton",
     "newcastle",
     "crystal palace",
@@ -34,7 +34,7 @@ export default function Context(props) {
 
   const [answerList, setAnswerList] = useState([]);
 
-  const [timer, setTimer] = useState(20);
+  const [timer, setTimer] = useState(10);
 
   const [start, setStart] = useState(false);
 
