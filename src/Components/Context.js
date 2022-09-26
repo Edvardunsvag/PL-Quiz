@@ -34,7 +34,7 @@ export default function Context(props) {
 
   const [answerList, setAnswerList] = useState([]);
 
-  const [timer, setTimer] = useState(5);
+  const [timer, setTimer] = useState(90);
 
   const [start, setStart] = useState(false);
 
@@ -125,7 +125,7 @@ export default function Context(props) {
       "tottenham",
       "wolverhampton",
       "arsenal",
-      "sheffield united",
+      "Bournemouth",
       "burnley",
       "southhampton",
       "everton",
@@ -133,11 +133,11 @@ export default function Context(props) {
       "crystal palace",
       "brighton",
       "aston villa",
-      "west bromwich",
-      "fulham",
+      "Brentford",
+      "Nottingham forest",
     ]);
     setAnswerList([]);
-    setTimer(120);
+    setTimer(90);
   };
 
   return (
