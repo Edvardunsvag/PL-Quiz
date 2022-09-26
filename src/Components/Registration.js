@@ -1,28 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import ScoreItem from "./ScoreItem";
 export default function Registration({
   regHandleChange,
   regHandleClick,
   change,
-  leaderboard,
+  submitName,
 }) {
-  const [sorted, setSorted] = useState([]);
-
-  useEffect(() => {
-    let sorted = leaderboard.sort((a, b) => (a.score > b.score ? 1 : -1));
-
-    setSorted(sorted.reverse());
-    return () => {};
-  }, [leaderboard]);
-
   return (
     <>
-      <div className="jumbotron">
-        <div className="column">
-          <div className="head name-reg">
+      {submitName && (
+        <div className="relative container mx-auto mt-4 text-center bg-gray-200 p-2 rounded-lg">
+          <div className="flex flex-row p-4 my-4 justify-evenly">
             <input
-              className="playerInput"
+              className="p-2 rounded w-3/4 text-2xl"
               type="text"
               placeholder="Write your name, E.g Lars"
               value={change}
@@ -31,27 +21,12 @@ export default function Registration({
             <button
               type="button"
               onClick={regHandleClick}
-              className="btn btn-primary Start submit-btn">
+              className="px-4 py-2 bg-green-400 rounded text-xl font-semibold w-52 hover:bg-green-500">
               Submit Name
             </button>
           </div>
         </div>
-        <div className="column">
-          <div className="list-group">
-            <div className="head">
-              <h1>Leaderboard</h1>
-              {sorted.map((item, index) => {
-                return (
-                  <ScoreItem
-                    key={index}
-                    count={item.score}
-                    name={item.name}></ScoreItem>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
+      )}
     </>
   );
 }

@@ -34,7 +34,7 @@ export default function Context(props) {
 
   const [answerList, setAnswerList] = useState([]);
 
-  const [timer, setTimer] = useState(10);
+  const [timer, setTimer] = useState(5);
 
   const [start, setStart] = useState(false);
 
@@ -144,6 +144,7 @@ export default function Context(props) {
     <DataContext.Provider
       value={{
         count,
+        start,
         refContainer,
         change,
         handleChange: handleChange,

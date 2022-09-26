@@ -1,20 +1,42 @@
-import React from 'react';
+import React from "react";
+import AnswerItem from "./AnswerItem";
 
-export default function AnswerList({ answerList }) {
-    return (
-        <>
-            <h1 className='head'>Teams</h1>
-            <div className='list-group'>
-                {answerList.map((item, index) => {
-                    return (
-                        <li
-                            key={index}
-                            className='list-group-item bg-success py-0'>
-                            <h6>{item}</h6>
-                        </li>
-                    );
-                })}
-            </div>
-        </>
-    );
+export default function AnswerList({ answerList, teamsList }) {
+  var teams = [
+    "liverpool",
+    "west ham",
+    "leeds",
+    "manchester city",
+    "manchester united",
+    "chelsea",
+    "leicester",
+    "tottenham",
+    "wolverhampton",
+    "arsenal",
+    "sheffield united",
+    "burnley",
+    "southampton",
+    "everton",
+    "newcastle",
+    "crystal palace",
+    "brighton",
+    "aston villa",
+    "west bromwich",
+    "fulham",
+  ];
+
+  return (
+    <>
+      <div className="grid md:grid-cols-4 md:gap-4 md:p-4">
+        {teams.map((item, index) => {
+          return (
+            <AnswerItem
+              index={index}
+              answerList={answerList}
+              item={item}></AnswerItem>
+          );
+        })}
+      </div>
+    </>
+  );
 }
