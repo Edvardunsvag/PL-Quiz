@@ -1,30 +1,58 @@
 import React from "react";
-
+import { useState } from "react";
+import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
-export default function Navbar({ start, timer }) {
+
+import Sidebar from "./Sidebar/Sidebar";
+export default function Navbar({ start, timer, count }) {
+  const [toggle, setToggle] = useState(false);
+  const toggleClick = () => {
+    setToggle(!toggle);
+  };
+
   return (
-    <nav className="relative container mx-auto p-6">
-      <div className="flex justify-evenly space-x-6">
-        <Link
-          to="/"
-          className={`font-bold flex p-4 text-white rounded bg-red-300 hover:bg-red-400 hover:no-underline items-center focus:bg-red-400`}>
-          <h4 className="">Home</h4>
-        </Link>
-
-        {start ? (
-          <h2 className="flex p-4 font-bold text-5xl items-center">{timer}</h2>
-        ) : (
-          <h2 className="flex p-4 font-bold text-2xl items-center">
-            Premierleague Quiz
-          </h2>
-        )}
-
-        <Link
-          to="/RegPage"
-          className="flex p-6 text-white rounded-2xl bg-red-300 hover:bg-red-400 hover:no-underline items-center focus:bg-red-400">
-          <h4 className="font-bold">Scoreboard</h4>
-        </Link>
-      </div>
-    </nav>
+    <>
+      <nav className="flex container md:rounded-md justify-center text-base h-20 bg-Purple">
+        <div
+          className={`flex ${
+            start ? "justify-evenly" : "justify-between"
+          } h-20 w-full px-5 py-0 max-w-5xl`}>
+          {!start ? (
+            <>
+              <div className="flex md:order-1 justify-self-center text-xl md:text-2xl items-center font-bold ml-6 text-white">
+                {start ? <h2>{timer}</h2> : "Premier League Quiz"}
+              </div>
+              <div
+                onClick={toggleClick}
+                className="md:hidden flex justify-self-end items-center cursor-pointer text-2xl text-white mr-6 ">
+                <FaBars></FaBars>
+              </div>
+              <div className="hidden md:flex text-xl order-0 items-center text-white">
+                <Link className="hover:no-underline hover:text-Green" to="/">
+                  Home
+                </Link>
+              </div>
+              <div className="hidden md:flex order-2 text-xl items-center text-white">
+                <Link
+                  className="hover:no-underline hover:text-Green"
+                  to="/regPage">
+                  Leaderboard
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex md:order-1 justify-self-center text-4xl md:text-4xl items-center font-bold text-white">
+                {<h2>{timer}</h2>}
+              </div>
+              <div className="flex md:order-1 justify-self-center text-4xl md:text-4xl items-center font-bold text-Green">
+                {<h2>{count}</h2>}
+              </div>
+            </>
+          )}
+        </div>
+      </nav>
+      {<Sidebar isOpen={toggle} toggle={toggleClick}></Sidebar>}
+    </>
   );
 }

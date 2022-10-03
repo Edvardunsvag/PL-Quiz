@@ -25,6 +25,7 @@ export default function Context(props) {
     "west bromwich",
     "fulham",
   ]);
+  const [nameChange, setNameChange] = useState("");
 
   const refContainer = useRef(null);
 
@@ -34,7 +35,7 @@ export default function Context(props) {
 
   const [answerList, setAnswerList] = useState([]);
 
-  const [timer, setTimer] = useState(90);
+  const [timer, setTimer] = useState(60);
 
   const [start, setStart] = useState(false);
 
@@ -59,7 +60,6 @@ export default function Context(props) {
     }
 
     if (timer === 0) {
-      setSubmitName(true);
       setRedirect(true);
       setStart(false);
     }
@@ -87,6 +87,7 @@ export default function Context(props) {
     timer,
     start,
     answerList,
+    nameChange,
     change,
     teamsList,
     count,
@@ -113,7 +114,7 @@ export default function Context(props) {
     refContainer.current.focus();
     clearTimeout(timerState);
     setCount(0);
-    setSubmitName(true);
+    setSubmitName(false);
     setTeamsList([
       "liverpool",
       "west ham",
@@ -125,19 +126,20 @@ export default function Context(props) {
       "tottenham",
       "wolverhampton",
       "arsenal",
-      "Bournemouth",
+      "sheffield united",
       "burnley",
-      "southhampton",
+      "southampton",
       "everton",
       "newcastle",
       "crystal palace",
       "brighton",
       "aston villa",
-      "Brentford",
-      "Nottingham forest",
+      "west bromwich",
+      "fulham",
     ]);
     setAnswerList([]);
-    setTimer(90);
+    setTimer(60);
+    startGame();
   };
 
   return (
@@ -145,6 +147,8 @@ export default function Context(props) {
       value={{
         count,
         start,
+        nameChange,
+        setNameChange,
         refContainer,
         change,
         handleChange: handleChange,

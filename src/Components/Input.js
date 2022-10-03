@@ -1,6 +1,16 @@
 import React from "react";
+import Start from "./Start";
 
-export default function Input({ handleChange, change, focusing }) {
+export default function Input({
+  handleChange,
+  change,
+  focusing,
+  start,
+  timer,
+  startGame,
+  newGame,
+  submitName,
+}) {
   return (
     <>
       <div
@@ -18,6 +28,13 @@ export default function Input({ handleChange, change, focusing }) {
           />
         </div>
       </div>
+      {!start && (
+        <Start
+          timer={timer}
+          startGame={startGame}
+          newGame={newGame}
+          submitName={submitName}></Start>
+      )}
     </>
   );
 }

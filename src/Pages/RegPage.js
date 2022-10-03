@@ -1,13 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import Registration from "../Components/Registration";
 import { DataContext } from "../Components/Context";
 import Leaderboard from "../Components/Leaderboard";
 
 export default function RegPage() {
-  const [change, setChange] = useState("");
-
   const [leaderboard, setLeaderboard] = useState([]);
-  const [apiCall, setApiCall] = useState(false);
+  // const [apiCall, setApiCall] = useState(false);
 
   const context = useContext(DataContext);
 
@@ -15,10 +12,9 @@ export default function RegPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(10);
 
-  const { count, setRedirect, setSubmitName, submitName } = context;
+  const { submitName, nameChange } = context;
 
   useEffect(() => {
-    console.log("hw");
     let isSubsribed = true; //due to cleanup
 
     const response = async () => {
@@ -40,30 +36,26 @@ export default function RegPage() {
     return () => {
       isSubsribed = false;
     };
-  }, [apiCall, submitName, currentPage]);
+  }, [submitName, currentPage]);
 
-  const regHandleChange = (e) => {
-    let value = e.target.value;
-    setChange(value);
-  };
-
-  const regHandleClick = () => {
-    if (submitName) {
-      fetch("https://premierleaguequiz.azurewebsites.net/api/PremierLeague", {
+  const deleteItem = (id) => {
+    console.log(id);
+    fetch(
+      `https://premierleaguequiz.azurewebsites.net/api/PremierLeague/${id}`,
+      {
         // Enter your IP address here
-        method: "POST",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
         },
-        body: JSON.stringify({ id: 0, name: change, score: count }),
-      })
-        .then((data) => data.json())
-        .then((data) => setLeaderboard(data));
-
-      setApiCall(true);
-      setSubmitName(false);
-      setRedirect(false);
-    }
+      }
+    )
+      .then((data) => data.json())
+      .then((data) =>
+        setLeaderboard(
+          data.sort((a, b) => (a.score > b.score ? 1 : -1)).reverse()
+        )
+      );
   };
 
   //Get current posts
@@ -76,23 +68,27 @@ export default function RegPage() {
   return (
     <>
       <div>
-        {setApiCall && (
+        {/* {setApiCall && (
           <Registration
             submitName={submitName}
             leaderboard={leaderboard}
             change={change}
             regHandleChange={regHandleChange}
             regHandleClick={regHandleClick}></Registration>
-        )}
+        )} */}
         {leaderboard.length === 0 ? (
-          <div className="">Loading</div>
+          <div className="text-center animate-spin text-3xl mt-8">
+            Loading...
+          </div>
         ) : (
           <Leaderboard
+            nameChange={nameChange}
+            deleteItem={deleteItem}
             currentPage={currentPage}
             pageinate={pageinate}
             leaderboard={leaderboard}
             currentPosts={currentPosts}
-            change={change}
+            // change={change}
             postsPerPage={postPerPage}
             totalPosts={leaderboard.length}></Leaderboard>
         )}

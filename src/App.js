@@ -10,11 +10,11 @@ import { DataContext } from "./Components/Context";
 function App() {
   const context = useContext(DataContext);
 
-  const { timer, start } = context;
+  const { timer, start, count } = context;
 
   return (
     <>
-      <Navbar start={start} timer={timer}></Navbar>
+      <Navbar start={start} timer={timer} count={count}></Navbar>
       <Switch>
         <Route exact path="/" component={Main}></Route>
         <Route exact path="/RegPage" component={RegPage}></Route>
