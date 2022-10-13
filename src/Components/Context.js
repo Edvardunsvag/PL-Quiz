@@ -25,6 +25,20 @@ export default function Context(props) {
     "west bromwich",
     "fulham",
   ]);
+
+  const [optionsState, setOptionsState] = useState("allScores");
+
+  const [leaderboardWithOriginalValues, setLeaderboardWithOriginalValues] =
+    useState([]);
+
+  const [finished, setFinished] = useState(false);
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const [userScores, setUserScores] = useState([]);
+
+  const [user, setUser] = useState("");
+
   const [nameChange, setNameChange] = useState("");
 
   const refContainer = useRef(null);
@@ -35,7 +49,7 @@ export default function Context(props) {
 
   const [answerList, setAnswerList] = useState([]);
 
-  const [timer, setTimer] = useState(60);
+  const [timer, setTimer] = useState(30);
 
   const [start, setStart] = useState(false);
 
@@ -60,8 +74,8 @@ export default function Context(props) {
     }
 
     if (timer === 0) {
-      setRedirect(true);
-      setStart(false);
+      setFinished(true);
+      setSubmitName(true);
     }
 
     if (levenshteinScore) {
@@ -74,6 +88,7 @@ export default function Context(props) {
       setChange("");
       setLevenshteinScore(false);
     }
+    console.log("start", start);
     if (start) {
       const timerVariable =
         timer > 0 &&
@@ -113,7 +128,9 @@ export default function Context(props) {
   const newGame = (event) => {
     refContainer.current.focus();
     clearTimeout(timerState);
+    setFinished(false);
     setCount(0);
+    setRedirect(false);
     setSubmitName(false);
     setTeamsList([
       "liverpool",
@@ -138,8 +155,42 @@ export default function Context(props) {
       "fulham",
     ]);
     setAnswerList([]);
-    setTimer(60);
+    setTimer(5);
     startGame();
+  };
+
+  const newGameWithoutStart = (event) => {
+    refContainer.current.focus();
+    clearTimeout(timerState);
+    setFinished(false);
+    setCount(0);
+    setRedirect(false);
+    setSubmitName(false);
+    setTeamsList([
+      "liverpool",
+      "west ham",
+      "leeds",
+      "manchester city",
+      "manchester united",
+      "chelsea",
+      "leicester",
+      "tottenham",
+      "wolverhampton",
+      "arsenal",
+      "sheffield united",
+      "burnley",
+      "southampton",
+      "everton",
+      "newcastle",
+      "crystal palace",
+      "brighton",
+      "aston villa",
+      "west bromwich",
+      "fulham",
+    ]);
+    setAnswerList([]);
+    setTimer(5);
+    setStart(false);
   };
 
   return (
@@ -149,6 +200,7 @@ export default function Context(props) {
         start,
         nameChange,
         setNameChange,
+        setChange,
         refContainer,
         change,
         handleChange: handleChange,
@@ -158,7 +210,22 @@ export default function Context(props) {
         redirect,
         setRedirect,
         answerList,
+        loggedIn,
+        setLoggedIn,
+        finished,
+        setFinished,
+        setLeaderboardWithOriginalValues,
+        leaderboardWithOriginalValues,
+        user,
+        setUser,
+        userScores,
+        setUserScores,
+        setAnswerList,
+        newGameWithoutStart,
         timerState,
+        optionsState,
+        setStart,
+        setOptionsState,
         submitName,
         setSubmitName,
       }}>

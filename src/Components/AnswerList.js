@@ -27,10 +27,11 @@ export default function AnswerList({ answerList, teamsList }) {
 
   return (
     <>
-      <div className="grid md:grid-cols-4 md:gap-4 md:p-4">
+      <div className="container answerList bg-gray-300 md:rounded">
         {teams.map((item, index) => {
           return (
             <AnswerItem
+              key={index}
               index={index}
               answerList={answerList}
               item={item}></AnswerItem>

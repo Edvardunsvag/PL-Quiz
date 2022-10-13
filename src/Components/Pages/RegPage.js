@@ -1,18 +1,23 @@
 import React, { useState, useContext, useEffect } from "react";
-import { DataContext } from "../Components/Context";
-import Leaderboard from "../Components/Leaderboard";
+import { DataContext } from "../../Components/Context";
+import Leaderboard from "../../Components/Leaderboard";
 
 export default function RegPage() {
   const [leaderboard, setLeaderboard] = useState([]);
-  // const [apiCall, setApiCall] = useState(false);
-
   const context = useContext(DataContext);
+  const {
+    submitName,
+    nameChange,
+    setAnswerList,
+    user,
+    loggedIn,
+    setOptionsState,
+    optionsState,
+  } = context;
 
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(10);
-
-  const { submitName, nameChange } = context;
 
   useEffect(() => {
     let isSubsribed = true; //due to cleanup
@@ -24,7 +29,6 @@ export default function RegPage() {
       const data = await response.json();
       return data;
     };
-
     response().then((data) =>
       isSubsribed
         ? setLeaderboard(
@@ -32,14 +36,14 @@ export default function RegPage() {
           )
         : null
     );
+    setAnswerList([]);
 
     return () => {
       isSubsribed = false;
     };
-  }, [submitName, currentPage]);
+  }, [submitName, currentPage, optionsState, setAnswerList]);
 
   const deleteItem = (id) => {
-    console.log(id);
     fetch(
       `https://premierleaguequiz.azurewebsites.net/api/PremierLeague/${id}`,
       {
@@ -61,38 +65,40 @@ export default function RegPage() {
   //Get current posts
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
-  const currentPosts = leaderboard.slice(indexOfFirstPost, indexOfLastPost);
+  let currentPosts =
+    optionsState === "myScores"
+      ? leaderboard
+          .filter((item) => item.email === user.email)
+          .slice(indexOfFirstPost, indexOfLastPost)
+      : leaderboard.slice(indexOfFirstPost, indexOfLastPost);
 
   const pageinate = (number) => setCurrentPage(number);
 
   return (
     <>
-      <div>
-        {/* {setApiCall && (
-          <Registration
-            submitName={submitName}
-            leaderboard={leaderboard}
-            change={change}
-            regHandleChange={regHandleChange}
-            regHandleClick={regHandleClick}></Registration>
-        )} */}
-        {leaderboard.length === 0 ? (
-          <div className="text-center animate-spin text-3xl mt-8">
-            Loading...
-          </div>
-        ) : (
-          <Leaderboard
-            nameChange={nameChange}
-            deleteItem={deleteItem}
-            currentPage={currentPage}
-            pageinate={pageinate}
-            leaderboard={leaderboard}
-            currentPosts={currentPosts}
-            // change={change}
-            postsPerPage={postPerPage}
-            totalPosts={leaderboard.length}></Leaderboard>
-        )}
-      </div>
+      {leaderboard.length === 0 ? (
+        <div className="text-center animate-spin text-3xl mt-8">Loading...</div>
+      ) : (
+        <Leaderboard
+          setOptionsState={setOptionsState}
+          optionsState={optionsState}
+          loggedIn={loggedIn}
+          user={user}
+          setLeaderboard={setLeaderboard}
+          nameChange={nameChange}
+          deleteItem={deleteItem}
+          currentPage={currentPage}
+          pageinate={pageinate}
+          leaderboard={leaderboard}
+          currentPosts={currentPosts}
+          // change={change}
+          postsPerPage={postPerPage}
+          totalPosts={
+            optionsState === "myScores"
+              ? leaderboard.filter((item) => item.email === user.email).length
+              : leaderboard.length
+          }></Leaderboard>
+      )}
     </>
   );
 }
